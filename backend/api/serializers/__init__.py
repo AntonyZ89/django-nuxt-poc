@@ -4,12 +4,16 @@ from .coordinator import CoordinatorSerializer
 from .discipline import DisciplineSerializer
 from .discipline_note import DisciplineNoteSerializer
 from .discipline_student import DisciplineStudentSerializer
+from .login import LoginSerializer
+from .user import UserSerializer
 
 __all__ = [
+    "UserSerializer",
     "StudentSerializer",
     "TeacherSerializer",
     "CoordinatorSerializer",
     "DisciplineSerializer",
     "DisciplineNoteSerializer",
     "DisciplineStudentSerializer",
+    "LoginSerializer"
 ]

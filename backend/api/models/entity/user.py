@@ -21,7 +21,8 @@ class User(AbstractBaseUser):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['email', 'role'], name='unique_email_role'
+                fields=['email', 'role'],
+                name='unique_email_role'
             )
         ]
 
@@ -30,17 +31,10 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     name = models.CharField(max_length=50)
-    email = models.EmailField(unique=True)
+    email = models.EmailField()
     birthday = models.DateField()
 
     role = models.CharField(max_length=30, choices=Role.choices)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    base_role = Role.STUDENT
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.role = self.base_role
-            return super().save(*args, **kwargs)

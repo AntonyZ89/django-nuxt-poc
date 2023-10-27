@@ -1,17 +1,18 @@
-from rest_framework import serializers
-from ..models import User, Teacher, Student, Coordinator
+from rest_framework import serializers, validators
+from ..models import User
 
 
-class UserSerializer (serializers.Serializer):
+class UserSerializer (serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+        validators = [
+            validators.UniqueTogetherValidator(
+                queryset=User.objects.all(),
+                fields=['email', 'role'],
+                message='User with this email and role already exists'
+            )
+        ]
 
     def create(self, validated_data):
-        match validated_data['role']:
-            case User.Role.STUDENT:
-                return Student.objects.create_user(**validated_data)
-            case User.Role.TEACHER:
-                return Teacher.objects.create_user(**validated_data)
-            case User.Role.COORDINATOR:
-                return Coordinator.objects.create_user(**validated_data)
+        return User.objects.create_user(**validated_data)
