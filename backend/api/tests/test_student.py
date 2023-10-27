@@ -18,6 +18,10 @@ class StudentTest(TestCase):
         'birthday': birthday
     }
 
+    """
+    Success cases
+    """
+
     def test_create_student(self):
         serializer = StudentSerializer(data=self.data)
         serializer.is_valid(raise_exception=True)
@@ -48,6 +52,10 @@ class StudentTest(TestCase):
         student = Student.objects.get(email=self.email)
 
         self.assertEqual(student.name, 'New Name')
+
+    """
+    Fail cases
+    """
 
     def test_create_duplicated_student(self):
         serializer = StudentSerializer(data=self.data)

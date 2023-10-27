@@ -7,5 +7,5 @@ class DisciplineNote(models.Model):
 
     note = models.FloatField()
 
-    created_at = models.DateTimeField(auto_created=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
