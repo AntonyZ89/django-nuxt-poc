@@ -1,8 +1,10 @@
 from rest_framework import routers
 from django.urls import path
-from .views import auth
+from .views import auth, discipline
 
 router = routers.DefaultRouter()
+
+router.register('discipline', discipline.DisciplineView)
 
 auth_urls = [
     path("login", auth.login),
