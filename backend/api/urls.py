@@ -8,7 +8,7 @@ router.register('discipline', discipline.DisciplineView)
 
 auth_urls = [
     path("login", auth.login),
-    path("signup", auth.signup)
+    path("signup", auth.signup),
 ]
 
 user_urls = []
