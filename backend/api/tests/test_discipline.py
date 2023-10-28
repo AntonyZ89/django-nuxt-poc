@@ -93,8 +93,8 @@ class DisciplineTest(TestCase):
 
         data = dict(self.data, teacher=None)
 
-        serializer = DisciplineSerializer(data=data)
         with self.assertRaises(ValidationError) as e:
+            serializer = DisciplineSerializer(data=data)
             serializer.is_valid(raise_exception=True)
 
         error = e.exception.detail['teacher'][0]
@@ -111,8 +111,8 @@ class DisciplineTest(TestCase):
 
         data = dict(self.data, teacher=999)
 
-        serializer = DisciplineSerializer(data=data)
         with self.assertRaises(ValidationError) as e:
+            serializer = DisciplineSerializer(data=data)
             serializer.is_valid(raise_exception=True)
 
         error = e.exception.detail['teacher'][0]
@@ -129,8 +129,8 @@ class DisciplineTest(TestCase):
 
         data = dict(self.data, teacher=self.student_id)
 
-        serializer = DisciplineSerializer(data=data)
         with self.assertRaises(ValidationError) as e:
+            serializer = DisciplineSerializer(data=data)
             serializer.is_valid(raise_exception=True)
 
         error = e.exception.detail['teacher'][0]
@@ -147,8 +147,8 @@ class DisciplineTest(TestCase):
 
         data = dict(self.data, teacher=self.coordinator_id)
 
-        serializer = DisciplineSerializer(data=data)
         with self.assertRaises(ValidationError) as e:
+            serializer = DisciplineSerializer(data=data)
             serializer.is_valid(raise_exception=True)
 
         error = e.exception.detail['teacher'][0]
