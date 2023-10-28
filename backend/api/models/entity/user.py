@@ -11,6 +11,13 @@ class UserManager(BaseUserManager):
 
         return user
 
+    def create_superuser(self, email: str, password: str, **extra_fields):
+        extra_fields.setdefault('name', 'Admin')
+        extra_fields.setdefault('role', User.Role.COORDINATOR)
+        extra_fields.setdefault('birthday', '1999-01-01')
+
+        return self.create_user(email, password, **extra_fields)
+
 
 class User(AbstractBaseUser):
     class Role(models.TextChoices):

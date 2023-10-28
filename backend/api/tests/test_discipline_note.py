@@ -1,15 +1,14 @@
 from django.test import TestCase
 from rest_framework.exceptions import ValidationError
-from api.serializers import (
-    StudentSerializer,
-    DisciplineNoteSerializer,
-    TeacherSerializer,
-    CoordinatorSerializer,
-    DisciplineSerializer
-)
+from api.serializers import DisciplineNoteSerializer
 
 
 class DisciplineNote(TestCase):
+    fixtures = [
+        'student_fixture', 'teacher_fixture',
+        'coordinator_fixture', 'discipline_fixture'
+    ]
+
     student_id = 1
     teacher_id = 2
     coordinator_id = 3
@@ -40,23 +39,6 @@ class DisciplineNote(TestCase):
     """
     Success test
     """
-
-    def setUp(self):
-        serializer = StudentSerializer(data=self.user_data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        serializer = TeacherSerializer(data=self.user_data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        serializer = CoordinatorSerializer(data=self.user_data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        serializer = DisciplineSerializer(data=self.discipline_data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
 
     def test_create_discipline_note(self):
         serializer = DisciplineNoteSerializer(data=self.data)

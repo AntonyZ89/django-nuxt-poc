@@ -3,8 +3,10 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework.authtoken.models import Token
+from django.utils import timezone
 from django.contrib import auth
-from ..serializers import LoginSerializer, UserSerializer
+from ..models import User
+from ..serializers import LoginSerializer
 from .. import permissions as custom_permissions
 
 
@@ -24,24 +26,12 @@ def login(request: Request):
 
     token, _ = Token.objects.get_or_create(user=user)
 
+    User.objects.filter(pk=user.pk).update(last_login=timezone.now())
+
     return Response(
         {
             "message": "Log in successfully",
             "token": token.key,
         },
         status=status.HTTP_200_OK
-    )
-
-
-@api_view(["POST"])
-@permission_classes([custom_permissions.IsGuest])
-def signup(request: Request):
-    serializer = UserSerializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
-
-    serializer.save()
-
-    return Response(
-        {"message": "Signup successfully"},
-        status=status.HTTP_201_CREATED
     )

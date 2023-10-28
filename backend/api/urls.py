@@ -12,7 +12,6 @@ router.register('discipline-student', discipline_student.DisciplineStudentView)
 
 auth_urls = [
     path("login", auth.login),
-    path("signup", auth.signup),
 ]
 
 user_urls = []

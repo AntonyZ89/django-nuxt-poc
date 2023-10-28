@@ -1,0 +1,13 @@
+[
+{
+  "model": "api.discipline",
+  "pk": 1,
+  "fields": {
+    "teacher": 3,
+    "name": "Mathematic",
+    "workload": "200.00",
+    "created_at": "2023-10-28T20:13:50.799Z",
+    "updated_at": "2023-10-28T20:20:52.103Z"
+  }
+}
+]

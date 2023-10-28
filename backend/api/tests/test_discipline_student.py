@@ -1,50 +1,20 @@
 from django.test import TestCase
 from rest_framework.exceptions import ValidationError
-from api.serializers import (
-    DisciplineSerializer,
-    TeacherSerializer,
-    StudentSerializer,
-    DisciplineStudentSerializer,
-    CoordinatorSerializer
-)
+from api.serializers import DisciplineStudentSerializer
+
 from api.models import Student
 
 
 class DisciplineStudentTest(TestCase):
+    fixtures = [
+        'student_fixture', 'teacher_fixture',
+        'coordinator_fixture', 'discipline_fixture'
+    ]
+
     student_id = 1
     teacher_id = 2
     coordinator_id = 3
     discipline_id = 1
-
-    discipline_data = {
-        'name': 'test',
-        'workload': 200,
-        'teacher': teacher_id
-    }
-
-    user_data = {
-        'name': 'test user',
-        'email': 'user@gmail.com',
-        'password': '12345678',
-        'birthday': '1999-01-01'
-    }
-
-    def setUp(self):
-        student_serializer = StudentSerializer(data=self.user_data)
-        student_serializer.is_valid(raise_exception=True)
-        student_serializer.save()
-
-        teacher_serializer = TeacherSerializer(data=self.user_data)
-        teacher_serializer.is_valid(raise_exception=True)
-        teacher_serializer.save()
-
-        coordinator_serializer = CoordinatorSerializer(data=self.user_data)
-        coordinator_serializer.is_valid(raise_exception=True)
-        coordinator_serializer.save()
-
-        discipline_serializer = DisciplineSerializer(data=self.discipline_data)
-        discipline_serializer.is_valid(raise_exception=True)
-        discipline_serializer.save()
 
     def test_vinculate_student_to_discipline(self):
         data = dict(

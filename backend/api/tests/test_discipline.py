@@ -1,11 +1,13 @@
 from datetime import datetime
 from django.test import TestCase
-from api.models import Teacher, Student, Coordinator, Discipline
+from api.models import Discipline
 from api.serializers import DisciplineSerializer
 from rest_framework.exceptions import ValidationError
 
 
 class DisciplineTest(TestCase):
+    fixtures = ['student_fixture', 'teacher_fixture', 'coordinator_fixture']
+
     name = 'discipline'
     workload = 200
     student_id = 1
@@ -17,24 +19,6 @@ class DisciplineTest(TestCase):
         'workload': workload,
         'teacher': teacher_id
     }
-
-    user_data = {
-        'name': 'user',
-        'email': 'user@user.com',
-        'password': '12345678',
-        'birthday': '1999-01-01'
-    }
-
-    def setUp(self):
-        Student.objects.create_user(
-            **dict({'role': Student.Role.STUDENT}, **self.user_data)
-        )
-        Teacher.objects.create_user(
-            **dict({'role': Teacher.Role.TEACHER}, **self.user_data)
-        )
-        Coordinator.objects.create_user(
-            **dict({'role': Coordinator.Role.COORDINATOR}, **self.user_data)
-        )
 
     """
     Success cases
