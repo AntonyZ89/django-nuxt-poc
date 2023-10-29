@@ -1,0 +1,41 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@nuxtjs/eslint-config": "^12.0.0",
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@nuxtjs/tailwindcss": "^6.8.1",
+    "@vueuse/core": "^10.5.0",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "nuxt": "^3.8.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2",
+    "vue": "^3.3.7",
+    "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@formkit/auto-animate": "^0.8.0",
+    "@pinia/nuxt": "^0.5.1",
+    "@vee-validate/nuxt": "^4.11.8",
+    "@vee-validate/zod": "^4.11.8",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-vue-next": "^0.290.0",
+    "pinia": "^2.1.7",
+    "radix-vue": "^1.0.2",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss-animate": "^1.0.7",
+    "vee-validate": "^4.11.8",
+    "zod": "^3.22.4"
+  }
+}
