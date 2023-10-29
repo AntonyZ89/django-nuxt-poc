@@ -6,6 +6,7 @@ from .discipline_note import DisciplineNoteSerializer
 from .discipline_student import DisciplineStudentSerializer
 from .login import LoginSerializer
 from .user import UserSerializer
+from .response import NotFoundSerializer, TokenSerializer
 
 __all__ = [
     "UserSerializer",
@@ -15,5 +16,9 @@ __all__ = [
     "DisciplineSerializer",
     "DisciplineNoteSerializer",
     "DisciplineStudentSerializer",
-    "LoginSerializer"
+    "LoginSerializer",
+
+    # response
+    "NotFoundSerializer",
+    "TokenSerializer"
 ]
