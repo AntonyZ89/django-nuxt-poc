@@ -1,11 +1,12 @@
 from rest_framework import routers
 from .views import (
-    auth, discipline, discipline_note, discipline_student
+    auth, discipline, discipline_note, discipline_student, user
 )
 
 router = routers.DefaultRouter()
 
 router.register('', auth.AuthView, basename='auth')
+router.register('', user.UserView, basename='user')
 router.register(
     'discipline',
     discipline.DisciplineView,

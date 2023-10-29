@@ -2,7 +2,9 @@ from rest_framework import viewsets, permissions
 from api.serializers import DisciplineSerializer
 from django.db.models import Q
 from api.models import Discipline
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+from drf_spectacular.utils import (
+    extend_schema, OpenApiParameter, OpenApiTypes, OpenApiExample
+)
 
 
 class DisciplineView(viewsets.ModelViewSet):
@@ -36,6 +38,18 @@ class DisciplineView(viewsets.ModelViewSet):
                 'name',
                 type=OpenApiTypes.STR,
                 description="Filter by discipline's name"
+            ),
+            OpenApiParameter(
+                'expand',
+                type=OpenApiTypes.STR,
+                description="Expand related fields",
+                examples=[
+                    OpenApiExample(
+                        'expand',
+                        value='students',
+                        description="Expand students"
+                    )
+                ]
             ),
         ]
     )

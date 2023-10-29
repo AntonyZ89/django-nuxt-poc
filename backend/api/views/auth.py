@@ -3,7 +3,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from drf_spectacular.openapi import OpenApiResponse, OpenApiTypes
 from drf_spectacular.utils import extend_schema, OpenApiExample
-from rest_framework.decorators import permission_classes, action
+from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from django.utils import timezone
 from django.contrib import auth
@@ -14,6 +14,7 @@ from .. import permissions as custom_permissions
 
 class AuthView(viewsets.ViewSet):
     serializer_class = LoginSerializer
+    permission_classes = [custom_permissions.IsGuest]
 
     @extend_schema(
         responses={
@@ -32,7 +33,6 @@ class AuthView(viewsets.ViewSet):
             )
         }
     )
-    @permission_classes([custom_permissions.IsGuest])
     @action(detail=False, methods=["POST"])
     def login(self, request: Request):
         serializer = LoginSerializer(data=request.data)

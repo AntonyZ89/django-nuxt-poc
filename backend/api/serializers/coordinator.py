@@ -7,9 +7,9 @@ from .user import UserSerializer
 class CoordinatorSerializer (serializers.ModelSerializer):
     class Meta(UserSerializer.Meta):
         model = Coordinator
-        extra_kwargs = {
+        extra_kwargs = dict({
             "role": {"required": False, "default": Coordinator.base_role}
-        }
+        }, **UserSerializer.Meta.extra_kwargs)
 
     def validate_birthday(self, value: date):
         today = date.today()

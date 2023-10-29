@@ -6,9 +6,9 @@ from .user import UserSerializer
 class StudentSerializer (serializers.ModelSerializer):
     class Meta(UserSerializer.Meta):
         model = Student
-        extra_kwargs = {
+        extra_kwargs = dict({
             "role": {"required": False, "default": Student.base_role}
-        }
+        }, **UserSerializer.Meta.extra_kwargs)
 
     def create(self, validated_data):
         return Student.objects.create_user(**validated_data)

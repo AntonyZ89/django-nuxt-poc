@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,6 +32,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+
 AUTH_USER_MODEL = 'api.User'
 
 INSTALLED_APPS = [
@@ -47,6 +50,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     'drf_spectacular',
+
+    'corsheaders'
 ]
 
 REST_FRAMEWORK = {
@@ -74,6 +79,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -126,6 +133,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+FIXTURE_DIRS = [
+    os.path.join(BASE_DIR, 'api', 'fixtures', 'extra')
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
