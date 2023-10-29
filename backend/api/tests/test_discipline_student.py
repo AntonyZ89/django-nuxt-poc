@@ -1,8 +1,7 @@
 from django.test import TestCase
 from rest_framework.exceptions import ValidationError
-from api.serializers import DisciplineStudentSerializer
-
-from api.models import Student
+from api.serializers import DisciplineStudentSerializer, DisciplineSerializer
+from api.models import DisciplineStudent
 
 
 class DisciplineStudentTest(TestCase):
@@ -16,6 +15,10 @@ class DisciplineStudentTest(TestCase):
     coordinator_id = 3
     discipline_id = 1
 
+    """
+    Success cases
+    """
+
     def test_vinculate_student_to_discipline(self):
         data = dict(
             user=self.student_id,
@@ -26,12 +29,42 @@ class DisciplineStudentTest(TestCase):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        students = Student.objects.filter(
-            disciplinestudent__discipline__pk=self.discipline_id
+        discipline_serializer = DisciplineSerializer(
+            serializer.instance.discipline,
+            expand=['students'],
         )
 
-        self.assertEqual(len(students), self.student_id)
-        self.assertEqual(students[0].pk, self.student_id)
+        students = discipline_serializer.data.get('students')
+
+        self.assertEqual(len(students), 1)
+        self.assertEqual(students[0]['id'], self.student_id)
+        self.assertEqual(discipline_serializer.data.get('total_students'), 1)
+
+    def test_unvinculate_student_to_discipline(self):
+        data = dict(
+            user=self.student_id,
+            discipline=self.discipline_id
+        )
+
+        serializer = DisciplineStudentSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        discipline_serializer = DisciplineSerializer(
+            serializer.instance.discipline,
+            expand=['students'],
+        )
+
+        DisciplineStudent.objects.filter(**data).delete()
+
+        students = discipline_serializer.data.get('students')
+
+        self.assertEqual(len(students), 0)
+        self.assertEqual(discipline_serializer.data.get('total_students'), 0)
+
+    """
+    Fail cases
+    """
 
     def test_vinculate_teacher_to_discipline(self):
         data = dict(

@@ -1,9 +1,9 @@
 [
 {
   "model": "api.discipline",
-  "pk": 1,
+  "pk": 999,
   "fields": {
-    "teacher": 2,
+    "teacher": 992,
     "name": "Mathematic",
     "workload": "200.00",
     "created_at": "2023-10-28T20:13:50.799Z",
@@ -11,3 +11,4 @@
   }
 }
 ]
+

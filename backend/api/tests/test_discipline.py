@@ -6,10 +6,20 @@ from rest_framework.exceptions import ValidationError
 
 
 class DisciplineTest(TestCase):
-    fixtures = ['student_fixture', 'teacher_fixture', 'coordinator_fixture']
+    fixtures = [
+        'student_fixture', 'teacher_fixture',
+        'coordinator_fixture',
+
+        'extra_student_fixture',
+        'extra_teacher_fixture',
+        'extra_discipline_fixture',
+        'extra_discipline_student_fixture'
+    ]
 
     name = 'discipline'
     workload = 200
+
+    discipline_id = 1000
     student_id = 1
     teacher_id = 2
     coordinator_id = 3
@@ -35,12 +45,13 @@ class DisciplineTest(TestCase):
 
         discipline = serializer.instance
 
-        self.assertEqual(discipline.pk, 1)
+        self.assertIsInstance(discipline.pk, int)
         self.assertEqual(discipline.name, self.name)
         self.assertEqual(discipline.workload, self.workload)
         self.assertEqual(discipline.teacher_id, self.teacher_id)
         self.assertIsInstance(discipline.created_at, datetime)
         self.assertIsInstance(discipline.updated_at, datetime)
+        self.assertEqual(serializer.data.get('total_students'), 0)
 
     def test_update_discipline(self):
         """
@@ -50,7 +61,7 @@ class DisciplineTest(TestCase):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        discipline = Discipline.objects.get(pk=1)
+        discipline = Discipline.objects.get(pk=self.discipline_id)
 
         serializer = DisciplineSerializer(
             discipline,
@@ -61,10 +72,12 @@ class DisciplineTest(TestCase):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        discipline = Discipline.objects.get(pk=1)
+        discipline = Discipline.objects.get(pk=self.discipline_id)
 
         self.assertEqual(discipline.name, 'New Name')
         self.assertEqual(discipline.workload, 150)
+        self.assertEqual(discipline.teacher_id, self.teacher_id)
+        self.assertEqual(serializer.data.get('total_students'), 0)
 
     """
     Fail cases
