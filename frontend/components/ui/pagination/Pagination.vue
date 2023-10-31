@@ -22,6 +22,7 @@ const binding = useVModel(props, 'modelValue', emits, {
 
 <template>
   <Pagination
+    v-show="meta.pages > 1"
     v-slot="{ page }"
     :total="meta.pages"
     :items-per-page="1"

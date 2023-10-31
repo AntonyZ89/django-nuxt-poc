@@ -5,9 +5,13 @@ const props = defineProps<{ class?: string }>()
 </script>
 
 <template>
-  <div class="w-full overflow-auto">
-    <table :class="cn('w-full caption-bottom text-sm', props.class)">
-      <slot />
-    </table>
-  </div>
+  <UiCard>
+    <UiCardContent class="p-0">
+      <div class="w-full overflow-auto">
+        <table :class="cn('w-full caption-bottom text-sm', props.class)">
+          <slot />
+        </table>
+      </div>
+    </UiCardContent>
+  </UiCard>
 </template>

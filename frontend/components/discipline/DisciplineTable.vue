@@ -22,55 +22,64 @@
     </UiTableHeader>
 
     <UiTableBody>
-      <UiTableRow v-for="item in items" :key="item.id">
-        <UiTableCell>
-          {{ item.name }}
+      <template v-if="disciplineStore.items.length">
+        <UiTableRow v-for="item in disciplineStore.items" :key="item.id">
+          <UiTableCell>
+            {{ item.name }}
           </UiTableCell>
-        <UiTableCell>
-          {{ item.teacher.name }}
+          <UiTableCell>
+            {{ item.teacher_obj.name }}
           </UiTableCell>
-        <UiTableCell>
-          {{ item.total_students }}
+          <UiTableCell>
+            {{ item.total_students }}
           </UiTableCell>
-        <UiTableCell>
-          {{ DateHelper.format(item.created_at) }}
+          <UiTableCell>
+            {{ DateHelper.formatDatetime(item.created_at) }}
           </UiTableCell>
-        <UiTableCell>
-          {{ DateHelper.format(item.updated_at) }}
+          <UiTableCell>
+            {{ DateHelper.formatDatetime(item.updated_at) }}
           </UiTableCell>
-        <UiTableCell class="text-center space-x-3">
-          <UiButton>Editar</UiButton>
-          <UiButton>Visualizar</UiButton>
+          <UiTableCell class="text-center space-y-1 lg:space-y-0 lg:space-x-2">
+            <PermissionRole role="COORDINATOR">
+              <UiButton
+                class="px-3 h-auto"
+                :as="NuxtLink"
+                :to="{ name: 'discipline-update-id', params: { id: item.id } }"
+              >
+                <Pencil class="w-4 h-4" />
+              </UiButton>
+            </PermissionRole>
+
+            <PermissionRole role="TEACHER">
+              <UiButton
+                :as="NuxtLink"
+                :to="{ name: 'discipline-view-id', params: { id: item.id } }"
+                variant="outline"
+                class="px-3 h-auto"
+              >
+                <Eye class="w-4 h-4" />
+              </UiButton>
+            </PermissionRole>
+
+            <PermissionRole role="COORDINATOR">
+              <DisciplineTableRemove :item="item" />
+            </PermissionRole>
           </UiTableCell>
-      </UiTableRow>
+        </UiTableRow>
+      </template>
+
+      <UiTableEmpty v-else :colspan="6">
+        <h1 class="text-xl font-bold">
+          Nenhuma disciplina encontrada
+        </h1>
+      </UiTableEmpty>
     </UiTableBody>
   </UiTable>
 </template>
 
 <script setup lang="ts">
-import type { FetchError } from 'ofetch'
-import { DisciplineService } from '~/services'
-import type { Discipline, Response } from '~/types'
+import { Pencil, Eye } from 'lucide-vue-next'
+import { NuxtLink } from '#components'
 
-const { toast } = useToast()
-const items = ref<Discipline[]>([])
-
-/**
- * Function
- */
-
-async function getItems() {
-  try {
-    const { results } = await DisciplineService.list()
-
-    items.value = results
-  } catch (e) {
-    const error = e as FetchError<Response>
-    const message = error.data?.message || 'Ocorreu um erro, tente novamente'
-
-    toast({ type: 'error', message })
-  }
-}
-
-onMounted(getItems)
+const disciplineStore = useDisciplineStore()
 </script>

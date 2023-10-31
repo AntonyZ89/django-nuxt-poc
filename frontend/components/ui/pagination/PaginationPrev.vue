@@ -2,11 +2,11 @@
 import { PaginationPrev, type PaginationPrevProps, useForwardProps } from 'radix-vue'
 import { ChevronLeft } from 'lucide-vue-next'
 import {
-  Button,
+  Button
 } from '@/components/ui/button'
 
 const props = withDefaults(defineProps<PaginationPrevProps>(), {
-  asChild: true,
+  asChild: true
 })
 const forwarded = useForwardProps(props)
 </script>

@@ -1,3 +1,3 @@
 <template>
-    User
+  <DisciplineForm />
 </template>

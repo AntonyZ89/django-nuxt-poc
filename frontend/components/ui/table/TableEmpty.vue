@@ -10,7 +10,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   class: '',
-  colspan: 1,
+  colspan: 1
 })
 </script>
 
@@ -31,3 +31,4 @@ const props = withDefaults(defineProps<Props>(), {
     </TableCell>
   </TableRow>
 </template>
+

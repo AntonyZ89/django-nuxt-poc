@@ -1,0 +1,73 @@
+<template>
+  <UiTable>
+    <UiTableHeader>
+      <UiTableHead>
+        Nome
+      </UiTableHead>
+      <UiTableHead>
+        Cadastrado em
+      </UiTableHead>
+      <UiTableHead>
+        E-mail
+      </UiTableHead>
+      <UiTableHead>
+        Tipo
+      </UiTableHead>
+      <UiTableHead>
+        Atualizado em
+      </UiTableHead>
+      <UiTableHead class="text-center w-44">
+        Ações
+      </UiTableHead>
+    </UiTableHeader>
+
+    <UiTableBody>
+      <template v-if="userStore.items.length">
+        <UiTableRow v-for="item in userStore.items" :key="item.id">
+          <UiTableCell>
+            {{ item.name }}
+          </UiTableCell>
+          <UiTableCell>
+            {{ item.email }}
+          </UiTableCell>
+          <UiTableCell>
+            {{ UserRoleLabel[item.role] }}
+          </UiTableCell>
+          <UiTableCell>
+            {{ DateHelper.formatDatetime(item.created_at) }}
+          </UiTableCell>
+          <UiTableCell>
+            {{ DateHelper.formatDatetime(item.updated_at) }}
+          </UiTableCell>
+          <UiTableCell class="text-center space-y-1 lg:space-y-0 lg:space-x-2">
+            <UiButton
+              class="px-3 h-auto"
+              :as="NuxtLink"
+              :to="{ name: 'user-id', params: { id: item.id } }"
+            >
+              <Pencil class="w-4 h-4" />
+            </UiButton>
+            <UiButton variant="outline" class="px-3 h-auto">
+              <Eye class="w-4 h-4" />
+            </UiButton>
+            <UserTableRemove :item="item" />
+          </UiTableCell>
+        </UiTableRow>
+      </template>
+
+      <UiTableEmpty v-else :colspan="6">
+        <h1 class="text-xl font-bold">
+          Nenhum usuário encontrado
+        </h1>
+      </UiTableEmpty>
+    </UiTableBody>
+  </UiTable>
+</template>
+
+<script setup lang="ts">
+import { Pencil, Eye } from 'lucide-vue-next'
+import { NuxtLink } from '#components'
+import { UserRoleLabel } from '~/types'
+
+const userStore = useUserStore()
+</script>
