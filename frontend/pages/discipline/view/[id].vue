@@ -16,21 +16,19 @@
       </div>
     </UiCardHeader>
     <UiCardContent class="p-3 space-y-3">
-      <DisciplineViewStudentTable />
+      <DisciplineViewStudentTable :discipline-students="item.students" />
     </UiCardContent>
   </UiCard>
 </template>
 
 <script setup lang="ts">
-import { DisciplineService } from '~/services'
-import type { Discipline } from '~/types'
-
 const route = useRoute()
+const disciplineViewStore = useDisciplineViewStore()
 
-const item = ref<RequiredSelect<Discipline, 'students'>>()
+const item = computed(() => disciplineViewStore.item)
 
-onMounted(async () => {
+onMounted(() => {
   const id = Number(route.params.id as string)
-  item.value = await DisciplineService.detail({ id, expand: ['students'] })
+  disciplineViewStore.load(id)
 })
 </script>

@@ -8,6 +8,9 @@
         Professor
       </UiTableHead>
       <UiTableHead>
+        Carga horária
+      </UiTableHead>
+      <UiTableHead>
         Total de Alunos
       </UiTableHead>
       <UiTableHead>
@@ -31,6 +34,9 @@
             {{ item.teacher_obj.name }}
           </UiTableCell>
           <UiTableCell>
+            {{ item.workload }}h
+          </UiTableCell>
+          <UiTableCell>
             {{ item.total_students }}
           </UiTableCell>
           <UiTableCell>
@@ -39,7 +45,7 @@
           <UiTableCell>
             {{ DateHelper.formatDatetime(item.updated_at) }}
           </UiTableCell>
-          <UiTableCell class="text-center space-y-1 lg:space-y-0 lg:space-x-2">
+          <UiTableCell class="text-center space-y-1 lg:space-y-0 md:space-x-2">
             <PermissionRole role="COORDINATOR">
               <UiButton
                 class="px-3 h-auto"
@@ -50,16 +56,14 @@
               </UiButton>
             </PermissionRole>
 
-            <PermissionRole role="TEACHER">
-              <UiButton
-                :as="NuxtLink"
-                :to="{ name: 'discipline-view-id', params: { id: item.id } }"
-                variant="outline"
-                class="px-3 h-auto"
-              >
-                <Eye class="w-4 h-4" />
-              </UiButton>
-            </PermissionRole>
+            <UiButton
+              :as="NuxtLink"
+              :to="{ name: 'discipline-view-id', params: { id: item.id } }"
+              variant="outline"
+              class="px-3 h-auto"
+            >
+              <Eye class="w-4 h-4" />
+            </UiButton>
 
             <PermissionRole role="COORDINATOR">
               <DisciplineTableRemove :item="item" />

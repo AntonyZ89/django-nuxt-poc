@@ -3,17 +3,26 @@
     <UiCard v-if="values">
       <UiCardHeader class="space-y-2">
         <div>
+          <UiLabel for="name">
+            Nome
+          </UiLabel>
           <UiInput name="name" :disabled="loading" placeholder="Nome" />
           <UiInputError name="name" />
         </div>
 
-        <div class="lg:w-[180px] space-y-2">
+        <div class="lg:w-[200px] space-y-2">
           <div>
+            <UiLabel for="teacher">
+              Professor
+            </UiLabel>
             <UiSelect :items="teachers" :disabled="loading" name="teacher" object-value="name" placeholder="Professor" />
             <UiInputError name="teacher" />
           </div>
 
           <div>
+            <UiLabel for="workload">
+              Carga horária
+            </UiLabel>
             <UiInput name="workload" :disabled="loading" placeholder="Carga horária" type="number" />
             <UiInputError name="workload" />
           </div>
@@ -25,7 +34,7 @@
         </h1>
 
         <div v-auto-animate class="space-y-2">
-          <div v-for="student in values.students" :key="student.id" class="flex items-center gap-x-2">
+          <div v-for="student in values.students" :key="student.user_obj.id" class="flex items-center gap-x-2">
             <UiButton
               type="button"
               variant="destructive"
@@ -37,11 +46,11 @@
             </UiButton>
 
             <div class="flex items-center">
-              {{ student.name }}
+              {{ student.user_obj.name }}
             </div>
           </div>
 
-          <div v-if="selecting" class="flex items-center gap-x-2">
+          <div v-if="selecting" class="flex items-center gap-x-2 w-[300px]">
             <UiButton
               type="button"
               class="p-1 rounded-full h-auto hover:scale-110 transition-all bg-gray-300 hover:bg-gray-300/80 text-black"
@@ -115,12 +124,14 @@ const validationSchema = z.object({
   teacher: z.object({
     id: z.number(),
     name: z.string()
-  }),
+  }, { required_error: 'Professor é obrigatório.' }),
   workload: z.number({ coerce: true }).min(1, 'Preencha o campo de carga horária.'),
   students: z.array(
     z.object({
-      id: z.number(),
-      name: z.string()
+      user_obj: z.object({
+        id: z.number(),
+        name: z.string()
+      })
     })
   ).min(1, 'Preencha o campo de estudantes.'),
   student: z.object({
@@ -144,13 +155,13 @@ const { values, setValues, setFieldValue, setErrors, handleSubmit: submit } = us
 })
 const selecting = ref(false)
 const loading = ref(false)
-const userList = ref<Schema['students']>([])
-const teachers = ref<Schema['students']>([])
-const removedUsers = ref<Schema['students']>([])
+const userList = ref<Schema['students'][number]['user_obj'][]>([])
+const teachers = ref<Schema['teacher'][]>([])
+const removedUsers = ref<Schema['students'][number]['user_obj'][]>([])
 
 const users = computed(
   () => userList.value.filter(
-    user => values.students!.findIndex(student => student.id === user.id) === -1
+    user => values.students!.findIndex(student => student.user_obj.id === user.id) === -1
   ).concat(removedUsers.value)
 )
 
@@ -224,10 +235,10 @@ async function getTeachers () {
 }
 
 function handleAdd () {
-  const user = values.student as Schema['students'][number]
+  const user = values.student as Required<NonNullable<typeof values.student>>
   setFieldValue('students', [
     ...values.students || [],
-    user
+    { user_obj: user }
   ])
 
   if (!users.value.length) {
@@ -246,11 +257,11 @@ function handleAdd () {
 function handleRemove (item: Schema['students'][number]) {
   const students = values.students || []
 
-  if (userList.value.findIndex(student => student.id === item.id) === -1) {
-    removedUsers.value.push(item)
+  if (userList.value.findIndex(student => student.id === item.user_obj.id) === -1) {
+    removedUsers.value.push(item.user_obj)
   }
 
-  setFieldValue('students', students.filter(student => student.id !== item.id))
+  setFieldValue('students', students.filter(student => student.user_obj.id !== item.user_obj.id))
 }
 
 const handleSubmit = submit(async (values) => {
@@ -263,14 +274,14 @@ const handleSubmit = submit(async (values) => {
         id: props.id,
         ...values,
         teacher: values.teacher.id,
-        students: values.students.map(student => student.id)
+        students: values.students.map(student => student.user_obj.id)
       })
       message = 'Disciplina atualizada com sucesso'
     } else {
       await DisciplineService.create({
         ...values,
         teacher: values.teacher.id,
-        students: values.students.map(student => student.id)
+        students: values.students.map(student => student.user_obj.id)
       })
       message = 'Disciplina criada com sucesso'
     }

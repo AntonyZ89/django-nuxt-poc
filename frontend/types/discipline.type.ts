@@ -1,4 +1,4 @@
-import type { User } from '~/types'
+import type { User, DisciplineStudent } from '~/types'
 
 interface Discipline {
   id: number
@@ -11,7 +11,7 @@ interface Discipline {
   teacher_obj: Pick<User, 'id' | 'name'>
   total_students: number
 
-  students?: User[]
+  students?: DisciplineStudent[]
 }
 
 type DisciplineCreate = Pick<Discipline, 'name' | 'workload' | 'teacher'> & { students: Array<User['id']> }

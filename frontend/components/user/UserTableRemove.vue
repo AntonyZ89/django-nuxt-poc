@@ -26,16 +26,16 @@
 <script setup lang="ts">
 import { Trash } from 'lucide-vue-next'
 import type { FetchError } from 'ofetch'
-import type { Discipline, Response } from '~/types'
-import { DisciplineService } from '~/services'
+import type { User, Response } from '~/types'
+import { UserService } from '~/services'
 
 interface Props {
-  item: Pick<Discipline, 'id' | 'name'>
+  item: Pick<User, 'id' | 'name'>
 }
 
 const { toast } = useToast()
 const props = defineProps<Props>()
-const disciplineStore = useDisciplineStore()
+const userStore = useUserStore()
 
 const dialog = ref(false)
 
@@ -45,16 +45,16 @@ const dialog = ref(false)
 
 async function handleRemove () {
   try {
-    await DisciplineService.remove(props.item.id)
+    await UserService.remove(props.item.id)
 
-    toast({ type: 'success', message: 'Disciplina excluída com sucesso' })
+    toast({ type: 'success', message: 'Usuário excluído com sucesso' })
 
     dialog.value = false
 
-    if (disciplineStore.meta.page > 1 && disciplineStore.items.length === 1) {
-      disciplineStore.handlePage(disciplineStore.meta.page - 1)
+    if (userStore.meta.page > 1 && userStore.items.length === 1) {
+      userStore.handlePage(userStore.meta.page - 1)
     } else {
-      disciplineStore.load()
+      userStore.load()
     }
   } catch (e) {
     const error = e as FetchError<Response>

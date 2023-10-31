@@ -50,7 +50,7 @@
             <UiButton variant="outline" class="px-3 h-auto">
               <Eye class="w-4 h-4" />
             </UiButton>
-            <UserTableRemove :item="item" />
+            <UserTableRemove v-if="item.id !== globalStore.user!.id" :item="item" />
           </UiTableCell>
         </UiTableRow>
       </template>
@@ -69,5 +69,6 @@ import { Pencil, Eye } from 'lucide-vue-next'
 import { NuxtLink } from '#components'
 import { UserRoleLabel } from '~/types'
 
+const globalStore = useGlobalStore()
 const userStore = useUserStore()
 </script>

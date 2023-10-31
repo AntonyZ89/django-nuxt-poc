@@ -3,11 +3,9 @@
     <UiCardContent class="flex justify-between p-3">
       <ul class="flex gap-x-3">
         <NavbarItem to="/" name="Início" />
-        <PermissionRole :role="['TEACHER', 'COORDINATOR']">
-          <NavbarItem to="/discipline" name="Disciplinas" />
-        </PermissionRole>
+        <NavbarItem to="/discipline" name="Disciplinas" />
 
-        <PermissionRole role="COOPERATOR">
+        <PermissionRole role="COORDINATOR">
           <NavbarItem to="/user" name="Usuários" />
         </PermissionRole>
       </ul>
@@ -39,7 +37,8 @@ const globalStorage = useGlobalStore()
 function logout () {
   localStorage.removeItem('token')
 
-  globalStorage.user = undefined
-  router.push({ name: 'login' })
+  location.replace(
+    router.resolve({ name: 'login' }).href
+  )
 }
 </script>
