@@ -1,6 +1,6 @@
 from rest_framework import routers
 from .views import (
-    auth, discipline, discipline_note, discipline_student, user
+    auth, discipline, discipline_student, user
 )
 
 router = routers.DefaultRouter()
@@ -11,11 +11,6 @@ router.register(
     'discipline',
     discipline.DisciplineView,
     basename='discipline'
-)
-router.register(
-    'discipline-note',
-    discipline_note.DisciplineNoteView,
-    basename='discipline-note'
 )
 router.register(
     'discipline-student',

@@ -9,6 +9,7 @@ class DisciplineStudentView(
     mixins.ListModelMixin,
     mixins.CreateModelMixin,
     mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet
 ):
@@ -17,6 +18,7 @@ class DisciplineStudentView(
     queryset = DisciplineStudent.objects.all()
 
     def get_queryset(self):
+        query = self.queryset
         condition = Q()
 
         if self.action == 'list':
@@ -32,11 +34,12 @@ class DisciplineStudentView(
                 condition |= Q(user__name__contains=student_name)
 
             return (
-                DisciplineStudent
-                .objects
+                query
                 .filter(discipline__id=discipline_id)
                 .filter(condition)
             )
+
+        return query
 
     @extend_schema(
         parameters=[

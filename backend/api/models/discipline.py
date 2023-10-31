@@ -5,7 +5,7 @@ from django.db import models
 class Discipline(models.Model):
     teacher = models.ForeignKey(
         Teacher,
-        on_delete=models.RESTRICT,
+        on_delete=models.CASCADE,
         limit_choices_to={'role': Teacher.Role.TEACHER}
     )
 

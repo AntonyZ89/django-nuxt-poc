@@ -4,14 +4,27 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema
 from ..models import User
-from ..serializers import UserSerializer
+from ..serializers import (
+    UserSerializer, TeacherSerializer, StudentSerializer, CoordinatorSerializer
+)
 from drf_spectacular.utils import OpenApiTypes, OpenApiParameter
 
 
 class UserView(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = UserSerializer
     queryset = User.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update'] and 'role' in self.request.data:
+            match self.request.data.get('role'):
+                case User.Role.TEACHER:
+                    return TeacherSerializer
+                case User.Role.STUDENT:
+                    return StudentSerializer
+                case User.Role.COORDINATOR:
+                    return CoordinatorSerializer
+
+        return UserSerializer
 
     def get_queryset(self):
         query_params = self.request.query_params

@@ -30,10 +30,15 @@ function update (params: UpdateParams) {
   return useApi<User>(`user/${id}/`, { method: 'PATCH', body: rest })
 }
 
+function remove (id: number) {
+  return useApi<User>(`user/${id}/`, { method: 'DELETE' })
+}
+
 export default {
   list,
   me,
   detail,
   create,
-  update
+  update,
+  remove
 }

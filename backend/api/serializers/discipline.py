@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_flex_fields import FlexFieldsModelSerializer
-from ..models import Discipline, Student, Teacher
-from ..serializers import StudentSerializer
+from ..models import Discipline, Student, Teacher, DisciplineStudent
+from ..serializers.discipline_student import DisciplineStudentSerializer
 from drf_spectacular.utils import extend_schema_field, OpenApiTypes
 
 
@@ -42,9 +42,8 @@ class DisciplineSerializer (FlexFieldsModelSerializer):
 
         return dict(id=teacher.id, name=teacher.name)
 
+    @extend_schema_field(DisciplineStudentSerializer(many=True))
     def get_students(self, obj: Discipline):
-        query = Student.objects.filter(
-            disciplinestudent__discipline__pk=obj.pk
-        )
+        query = DisciplineStudent.objects.filter(discipline__pk=obj.pk)
 
-        return StudentSerializer(query, many=True).data
+        return DisciplineStudentSerializer(query, many=True).data

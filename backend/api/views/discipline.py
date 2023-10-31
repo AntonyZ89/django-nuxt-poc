@@ -2,7 +2,6 @@ from rest_framework import viewsets, permissions, status
 from api.serializers import DisciplineSerializer
 from rest_framework.request import Request
 from rest_framework.response import Response
-from django.db.models import Q
 from api.models import Discipline, DisciplineStudent, Student
 from drf_spectacular.utils import (
     extend_schema, OpenApiParameter, OpenApiTypes, OpenApiExample
