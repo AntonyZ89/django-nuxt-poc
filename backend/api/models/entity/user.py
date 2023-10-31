@@ -11,6 +11,19 @@ class UserManager(BaseUserManager):
 
         return user
 
+    def update_user(self, user, **kwargs):
+        for key, value in kwargs.items():
+            if key == 'password':
+                user.set_password(value)
+            elif key == 'email':
+                user.email = self.normalize_email(value)
+            else:
+                setattr(user, key, value)
+
+        user.save()
+
+        return user
+
     def create_superuser(self, email: str, password: str, **extra_fields):
         extra_fields.setdefault('name', 'Admin')
         extra_fields.setdefault('role', User.Role.COORDINATOR)

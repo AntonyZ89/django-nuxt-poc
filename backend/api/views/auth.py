@@ -6,7 +6,6 @@ from drf_spectacular.utils import extend_schema, OpenApiExample
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from django.utils import timezone
-from django.contrib import auth
 from ..models import User
 from ..serializers import LoginSerializer, NotFoundSerializer, TokenSerializer
 from .. import permissions as custom_permissions
@@ -38,7 +37,7 @@ class AuthView(viewsets.ViewSet):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        user = auth.authenticate(**serializer.validated_data)
+        user = self.get_user(serializer.validated_data)
 
         if not user:
             return Response(
@@ -57,3 +56,14 @@ class AuthView(viewsets.ViewSet):
             },
             status=status.HTTP_200_OK
         )
+
+    def get_user(self, validated_data):
+        try:
+            user = User.objects.get(
+                email=validated_data['email'], role=validated_data['role'])
+            if user.check_password(validated_data['password']):
+                return user
+        except User.DoesNotExist:
+            pass
+
+        return None

@@ -12,3 +12,6 @@ class StudentSerializer (serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Student.objects.create_user(**validated_data)
+
+    def update(self, instance: Student, validated_data):
+        return Student.objects.update_user(**validated_data)

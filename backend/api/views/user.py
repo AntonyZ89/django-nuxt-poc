@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions, status, mixins
+from rest_framework import viewsets, permissions, status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -8,20 +8,20 @@ from ..serializers import UserSerializer
 from drf_spectacular.utils import OpenApiTypes, OpenApiParameter
 
 
-class UserView(
-    mixins.ListModelMixin,
-    viewsets.GenericViewSet
-):
+class UserView(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
     def get_queryset(self):
+        query_params = self.request.query_params
         query = self.queryset
 
         if self.action == 'list':
-            role = self.request.query_params.get('role')
-            not_discipline = self.request.query_params.get('not_discipline')
+            role = query_params.get('role')
+            not_discipline = query_params.get('not_discipline')
+            email = query_params.get('email')
+            name = query_params.get('name')
 
             if role is not None:
                 query = query.filter(role=role)
@@ -31,7 +31,13 @@ class UserView(
                     disciplinestudent__discipline__pk__in=not_discipline
                 )
 
-        return query
+            if email is not None:
+                query = query.filter(email__contains=email)
+
+            if name is not None:
+                query = query.filter(name__contains=name)
+
+        return query.order_by('-created_at')
 
     @extend_schema(
         responses={status.HTTP_200_OK: UserSerializer}
@@ -49,6 +55,16 @@ class UserView(
                 type=OpenApiTypes.STR,
                 enum=User.Role,
                 description="Filter by role"
+            ),
+            OpenApiParameter(
+                'email',
+                type=OpenApiTypes.STR,
+                description="Filter by email"
+            ),
+            OpenApiParameter(
+                'name',
+                type=OpenApiTypes.STR,
+                description="Filter by name"
             ),
         ]
     )

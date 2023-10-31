@@ -25,3 +25,6 @@ class CoordinatorSerializer (serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Coordinator.objects.create_user(**validated_data)
+
+    def update(self, instance: Coordinator, validated_data):
+        return Coordinator.objects.update_user(**validated_data)
