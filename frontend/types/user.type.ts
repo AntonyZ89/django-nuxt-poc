@@ -1,3 +1,13 @@
+let _t: any
+
+const t = (key: string) => {
+  if (!_t) {
+    _t = useI18n().t
+  }
+
+  return _t(key)
+}
+
 enum UserRole {
   STUDENT = 'STUDENT',
   TEACHER = 'TEACHER',
@@ -5,15 +15,30 @@ enum UserRole {
 }
 
 const UserRoleLabel = {
-  [UserRole.STUDENT]: 'Estudante',
-  [UserRole.TEACHER]: 'Professor',
-  [UserRole.COORDINATOR]: 'Coordenador'
-}
+  [UserRole.STUDENT]: 'role.student',
+  [UserRole.TEACHER]: 'role.teacher',
+  [UserRole.COORDINATOR]: 'role.coordinator'
+} as const
 
 const UserRoleList = [
-  { value: UserRole.STUDENT, label: UserRoleLabel[UserRole.STUDENT] },
-  { value: UserRole.TEACHER, label: UserRoleLabel[UserRole.TEACHER] },
-  { value: UserRole.COORDINATOR, label: UserRoleLabel[UserRole.COORDINATOR] }
+  {
+    value: UserRole.STUDENT,
+    get label () {
+      return t(UserRoleLabel[UserRole.STUDENT])
+    }
+  },
+  {
+    value: UserRole.TEACHER,
+    get label () {
+      return t(UserRoleLabel[UserRole.TEACHER])
+    }
+  },
+  {
+    value: UserRole.COORDINATOR,
+    get label () {
+      return t(UserRoleLabel[UserRole.COORDINATOR])
+    }
+  }
 ]
 
 interface User {

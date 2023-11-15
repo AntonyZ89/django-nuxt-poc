@@ -1,44 +1,47 @@
 <template>
   <UiCard>
-    <UiCardContent class="flex justify-between p-3">
-      <ul class="flex gap-x-3">
-        <NavbarItem to="/" name="Início" />
-        <NavbarItem to="/discipline" name="Disciplinas" />
+    <UiCardContent class="p-3 relative">
+      <UiButton
+        :ref="({ element }) => buttonRef = element"
+        class="md:hidden"
+        @click="menu = !menu"
+      >
+        <Menu />
+      </UiButton>
 
-        <PermissionRole role="COORDINATOR">
-          <NavbarItem to="/user" name="Usuários" />
-        </PermissionRole>
-      </ul>
+      <UiCard
+        ref="menuRef"
+        as="menu"
+        class="transition-all absolute mt-6 inset-x-0 p-3 md:hidden flex flex-col justify-between gap-y-3"
+        :class="{ 'visible opacity-100': menu, 'invisible opacity-0': !menu }"
+      >
+        <NavbarLeft />
+        <NavbarRight />
+      </UiCard>
 
-      <ul class="flex items-center gap-x-3">
-        <template v-if="globalStorage.user">
-          <li class="text-sm font-bold">
-            {{ UserRoleLabel[globalStorage.user.role] }}
-          </li>
-          <li class="flex items-center text-sm bg-gray-100 py-2.5 px-3 rounded-lg">
-            <User class="mr-2 w-4 h-4" />
-
-            {{ globalStorage.user.name }}
-          </li>
-        </template>
-        <NavbarItem name="Sair" @click="logout" />
-      </ul>
+      <div class="hidden md:flex flex-row justify-between gap-x-3">
+        <NavbarLeft />
+        <NavbarRight />
+      </div>
     </UiCardContent>
   </UiCard>
 </template>
 
-<script setup>
-import { User } from 'lucide-vue-next'
-import { UserRoleLabel } from '~/types'
+<script setup lang="ts">
+import { onClickOutside } from '@vueuse/core'
+import { Menu } from 'lucide-vue-next'
 
-const router = useRouter()
-const globalStorage = useGlobalStore()
+const menu = ref(false)
+const menuRef = ref<HTMLMenuElement>()
+const buttonRef = ref<HTMLButtonElement>()
 
-function logout () {
-  localStorage.removeItem('token')
+watch(menu, () => {
+  const cancelClickOutside = onClickOutside(menuRef, (e) => {
+    cancelClickOutside?.()
+    const target = e.target as HTMLElement | null
+    const button = target?.closest('button')
 
-  location.replace(
-    router.resolve({ name: 'login' }).href
-  )
-}
+    button !== buttonRef.value && (menu.value = false)
+  })
+})
 </script>

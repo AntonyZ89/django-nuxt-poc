@@ -2,22 +2,22 @@
   <UiTable>
     <UiTableHeader>
       <UiTableHead>
-        Nome
+        {{ $t('user.field.name') }}
       </UiTableHead>
       <UiTableHead>
-        Cadastrado em
+        {{ $t('user.field.email') }}
       </UiTableHead>
       <UiTableHead>
-        E-mail
+        {{ $t('user.field.role') }}
       </UiTableHead>
       <UiTableHead>
-        Tipo
+        {{ $t('user.field.created_at') }}
       </UiTableHead>
       <UiTableHead>
-        Atualizado em
+        {{ $t('user.field.updated_at') }}
       </UiTableHead>
       <UiTableHead class="text-center w-44">
-        Ações
+        {{ $t('actions') }}
       </UiTableHead>
     </UiTableHeader>
 
@@ -31,7 +31,7 @@
             {{ item.email }}
           </UiTableCell>
           <UiTableCell>
-            {{ UserRoleLabel[item.role] }}
+            {{ $t(UserRoleLabel[item.role]) }}
           </UiTableCell>
           <UiTableCell>
             {{ DateHelper.formatDatetime(item.created_at) }}
@@ -39,16 +39,13 @@
           <UiTableCell>
             {{ DateHelper.formatDatetime(item.updated_at) }}
           </UiTableCell>
-          <UiTableCell class="text-center space-y-1 lg:space-y-0 lg:space-x-2">
+          <UiTableCell class="text-center space-y-1 lg:space-y-0 md:space-x-2">
             <UiButton
               class="px-3 h-auto"
               :as="NuxtLink"
               :to="{ name: 'user-id', params: { id: item.id } }"
             >
               <Pencil class="w-4 h-4" />
-            </UiButton>
-            <UiButton variant="outline" class="px-3 h-auto">
-              <Eye class="w-4 h-4" />
             </UiButton>
             <UserTableRemove v-if="item.id !== globalStore.user!.id" :item="item" />
           </UiTableCell>
@@ -65,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { Pencil, Eye } from 'lucide-vue-next'
+import { Pencil } from 'lucide-vue-next'
 import { NuxtLink } from '#components'
 import { UserRoleLabel } from '~/types'
 

@@ -8,15 +8,15 @@
     <UiDialogContent class="sm:max-w-[425px]">
       <UiDialogHeader>
         <UiDialogTitle>
-          Excluir disciplina "{{ item.name }}"?
+          {{ title }}
         </UiDialogTitle>
         <UiDialogDescription>
-          Esta ação não pode ser desfeita
+          {{ t('modal.delete.message') }}
         </UiDialogDescription>
       </UiDialogHeader>
       <UiDialogFooter>
         <UiButton variant="destructive" @click="handleRemove">
-          Excluir
+          {{ t('modal.delete.button') }}
         </UiButton>
       </UiDialogFooter>
     </UiDialogContent>
@@ -33,11 +33,16 @@ interface Props {
   item: Pick<User, 'id' | 'name'>
 }
 
+const { t } = useI18n()
 const { toast } = useToast()
 const props = defineProps<Props>()
 const userStore = useUserStore()
 
 const dialog = ref(false)
+
+const title = computed(() => {
+  return t('modal.delete.title', [t('page.user', 1).toLowerCase(), props.item.name])
+})
 
 /**
  * Function

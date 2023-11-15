@@ -1,0 +1,78 @@
+{
+  "actions": "Acciones",
+  "search": "Buscar",
+  "all": "Todos",
+  "create_entity": "Crear {0}",
+  "create": "Crear",
+  "update": "Actualizar",
+  "add": "Agregar",
+  "select": "Seleccionar",
+
+  "generic": {
+    "field": {
+      "name": "Nombre",
+      "created_at": "Creado en",
+      "updated_at": "Actualizado en",
+    }
+  },
+  "page": {
+    "home": "Inicio",
+    "discipline": "Disciplina | Disciplinas",
+    "user": "Usuario | Usuarios",
+  },
+  "role": {
+    "student": "Estudiante | Estudiantes",
+    "teacher": "Profesor",
+    "coordinator": "Coordinador",
+  },
+  "logout": "Cerrar sesión",
+  "discipline": {
+    "select_student": "Estudiante seleccionado",
+    "field": {
+      "name": "@:generic.field.name",
+      "workload": "Carga horaria",
+      "created_at": "@:generic.field.created_at",
+      "updated_at": "@:generic.field.updated_at",
+      "total_students": "Total de estudiantes",
+      "teacher": "Profesor",
+    },
+    "validation": {
+      "name": "El nombre es obligatorio.",
+      "workload": "La carga horaria es obligatoria.",
+      "teacher": "El profesor es obligatorio.",
+      "students": "Se requiere al menos un estudiante.",
+      "no_users": "Todos los estudiantes ya están seleccionados.",
+    }
+  },
+  "user": {
+    "field": {
+      "name": "@:generic.field.name",
+      "email": "Correo electrónico",
+      "role": "Rol",
+      "birthday": "Fecha de nacimiento",
+      "password": "Contraseña",
+      "new_password": "Nueva contraseña",
+      "password_confirmation": "Confirmación de contraseña",
+      "created_at": "@:generic.field.created_at",
+      "updated_at": "@:generic.field.updated_at",
+    },
+    "validation": {
+      "name": "El nombre debe tener al menos 3 caracteres.",
+      "email": "Correo electrónico no válido.",
+      "role": "El rol es obligatorio.",
+      "birthday": "La fecha de nacimiento es obligatoria.",
+      "password": "La contraseña es obligatoria.",
+      "password_min": "La contraseña debe tener al menos 6 caracteres.",
+      "password_confirmation": "La confirmación de contraseña no coincide.",
+    }
+  },
+
+  "modal": {
+    "delete": {
+      "title": "¿Eliminar {0} \"{1}\"?",
+      "message": "Esta acción no se puede deshacer.",
+      "button": "Eliminar",
+    }
+  }
+}
+

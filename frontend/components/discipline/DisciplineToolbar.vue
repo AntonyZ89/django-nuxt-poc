@@ -4,21 +4,21 @@
       <form class="grid md:grid-cols-[repeat(2,1fr)_150px] gap-3 items-end" @submit.prevent="handleSubmit">
         <div>
           <UiLabel for="name">
-            Nome
+            {{ $t('discipline.field.name') }}
           </UiLabel>
           <UiInput name="name" />
           <UiInputError name="name" />
         </div>
         <div>
           <UiLabel for="teacher">
-            Professor
+            {{ $t('discipline.field.teacher') }}
           </UiLabel>
           <UiInput name="teacher" />
           <UiInputError name="teacher" />
         </div>
 
         <UiButton type="submit">
-          Pesquisar
+          {{ $t('search') }}
         </UiButton>
       </form>
     </UiCardContent>

@@ -11,14 +11,19 @@ interface Props {
   loading?: boolean
 }
 
+const element = ref<HTMLElement>()
+
 withDefaults(defineProps<Props>(), {
   as: 'button'
 })
+
+defineExpose({ element })
 </script>
 
 <template>
   <component
     :is="as"
+    ref="element"
     :class="cn(buttonVariants({ variant, size }), $attrs.class ?? '')"
     :disabled="disabled || loading"
   >

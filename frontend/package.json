@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
+    "@nuxtjs/i18n": "v8.0.0-rc.5",
     "@pinia/nuxt": "^0.5.1",
     "@popperjs/core": "^2.11.8",
     "@vee-validate/nuxt": "^4.11.8",

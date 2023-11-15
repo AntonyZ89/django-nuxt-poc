@@ -4,33 +4,33 @@
       <UiCardHeader class="space-y-2">
         <div>
           <UiLabel for="name">
-            Nome
+            {{ $t('discipline.field.name') }}
           </UiLabel>
-          <UiInput name="name" :disabled="loading" placeholder="Nome" />
+          <UiInput name="name" :disabled="loading" />
           <UiInputError name="name" />
         </div>
 
         <div class="lg:w-[200px] space-y-2">
           <div>
             <UiLabel for="teacher">
-              Professor
+              {{ $t('discipline.field.teacher') }}
             </UiLabel>
-            <UiSelect :items="teachers" :disabled="loading" name="teacher" object-value="name" placeholder="Professor" />
+            <UiSelect :items="teachers" :disabled="loading" name="teacher" object-value="name" />
             <UiInputError name="teacher" />
           </div>
 
           <div>
             <UiLabel for="workload">
-              Carga horária
+              {{ $t('discipline.field.workload') }}
             </UiLabel>
-            <UiInput name="workload" :disabled="loading" placeholder="Carga horária" type="number" />
+            <UiInput name="workload" :disabled="loading" type="number" />
             <UiInputError name="workload" />
           </div>
         </div>
       </UiCardHeader>
       <UiCardContent class="space-y-3">
         <h1 class="text-xl font-bold">
-          Estudantes
+          {{ $t('role.student', 0) }}
         </h1>
 
         <div v-auto-animate class="space-y-2">
@@ -60,7 +60,7 @@
               <XCircle class="h-4 w-4" />
             </UiButton>
 
-            <UiSelect name="student" :items="users" placeholder="Selecionar aluno" object-value="name" />
+            <UiSelect name="student" :items="users" :placeholder="$t('discipline.select_student')" object-value="name" />
 
             <UiButton
               type="button"
@@ -79,20 +79,20 @@
               :disabled="loading || !users.length"
               @click="select(true)"
             >
-              <PlusCircle class="h-4 w-4 mr-1" /> Adicionar
+              <PlusCircle class="h-4 w-4 mr-1" /> {{ $t('add') }}
             </UiButton>
           </div>
 
           <UiInputError name="students" />
 
           <div v-if="!users.length">
-            Todos os estudantes disponíveis já foram selecionados
+            {{ $t('discipline.validation.no_users') }}
           </div>
         </div>
 
         <div class="text-right">
           <UiButton :disabled="selecting" :loading="loading">
-            {{ id ? 'Atualizar' : 'Criar' }}
+            {{ id ? $t('update'): $t('create') }}
           </UiButton>
         </div>
       </UiCardContent>
@@ -118,14 +118,15 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { toast } = useToast()
 const router = useRouter()
+const { t } = useI18n()
 
 const validationSchema = z.object({
-  name: z.string().min(1, 'Nome é obrigatório.'),
+  name: z.string().min(1, t('discipline.validation.name')),
   teacher: z.object({
     id: z.number(),
     name: z.string()
-  }, { required_error: 'Professor é obrigatório.' }),
-  workload: z.number({ coerce: true }).min(1, 'Preencha o campo de carga horária.'),
+  }, { required_error: t('discipline.validation.teacher') }),
+  workload: z.number({ coerce: true }).min(1, t('discipline.validation.workload')),
   students: z.array(
     z.object({
       user_obj: z.object({
@@ -133,7 +134,7 @@ const validationSchema = z.object({
         name: z.string()
       })
     })
-  ).min(1, 'Preencha o campo de estudantes.'),
+  ).min(1, t('discipline.validation.students')),
   student: z.object({
     id: z.number(),
     name: z.string()
@@ -161,7 +162,9 @@ const removedUsers = ref<Schema['students'][number]['user_obj'][]>([])
 
 const users = computed(
   () => userList.value.filter(
-    user => values.students!.findIndex(student => student.user_obj.id === user.id) === -1
+    user => values.students!.findIndex(
+      student => student.user_obj.id === user.id
+    ) === -1
   ).concat(removedUsers.value)
 )
 
@@ -241,15 +244,15 @@ function handleAdd () {
     { user_obj: user }
   ])
 
+  const previousDeleted = removedUsers.value.findIndex(student => student.id === user.id)
+
+  if (previousDeleted !== -1) {
+    removedUsers.value.splice(previousDeleted, 1)
+  }
+
   if (!users.value.length) {
     select(false)
   } else {
-    const previousDeleted = removedUsers.value.findIndex(student => student.id === user.id)
-
-    if (previousDeleted !== -1) {
-      removedUsers.value.splice(previousDeleted, 1)
-    }
-
     setFieldValue('student', undefined)
   }
 }

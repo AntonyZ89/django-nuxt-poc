@@ -2,7 +2,7 @@
   <UiCard class="w-96">
     <UiCardContent class="space-y-3 p-3">
       <h1 class="text-2xl font-bold text-center">
-        Bem-vindo
+        {{ t('welcome') }}
       </h1>
 
       <form class="space-y-3" @submit.prevent="handleSubmit">
@@ -12,23 +12,23 @@
           object-key="value"
           object-value="label"
           :disabled="loading"
-          placeholder="Tipo de usuário"
+          :placeholder="t('type_of_user')"
         />
         <UiInputError name="role" />
 
         <div>
-          <UiInput name="email" placeholder="E-mail" type="email" />
+          <UiInput name="email" :placeholder="t('user.field.email')" type="email" />
           <UiInputError name="email" />
         </div>
 
         <div>
-          <UiInput name="password" placeholder="Senha" type="password" />
+          <UiInput name="password" :placeholder="t('user.field.password')" type="password" />
           <UiInputError name="password" />
         </div>
 
         <div class="text-center">
           <UiButton type="submit">
-            Entrar
+            {{ t('enter') }}
           </UiButton>
         </div>
       </form>
@@ -48,6 +48,7 @@ definePageMeta({
 
 const router = useRouter()
 const { toast } = useToast()
+const { t } = useI18n()
 
 const validationSchema = toTypedSchema(z.object({
   role: z.object({
@@ -93,3 +94,23 @@ const handleSubmit = submit(async (values) => {
   }
 })
 </script>
+
+<i18n lang="json">
+{
+    "en": {
+        "welcome": "Welcome",
+        "type_of_user": "Type of user",
+        "enter": "Enter"
+    },
+    "pt": {
+        "welcome": "Bem-vindo",
+        "type_of_user": "Tipo de usuário",
+        "enter": "Entrar"
+    },
+    "es": {
+        "welcome": "Bienvenido",
+        "type_of_user": "Tipo de usuario",
+        "enter": "Entrar"
+    }
+}
+</i18n>

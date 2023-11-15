@@ -28,16 +28,19 @@ const binding = computed({
 <template>
   <UiPopover>
     <UiPopoverTrigger as-child>
-      <UiButton
-        variant="outline"
-        :class="cn(
-          'justify-start w-full text-left font-normal',
-          !binding && 'text-muted-foreground',
-        )"
-      >
-        <CalendarIcon class="inline-block mr-2 h-4 w-4" />
-        <span>{{ binding ? format(binding, "PPP", { locale: ptBR }) : placeholder }}</span>
-      </UiButton>
+      <div>
+        <UiButton
+          type="button"
+          variant="outline"
+          :class="cn(
+            'justify-start w-full text-left font-normal',
+            !binding && 'text-muted-foreground',
+          )"
+        >
+          <CalendarIcon class="inline-block mr-2 h-4 w-4" />
+          <span>{{ binding ? format(binding, "PPP", { locale: ptBR }) : placeholder }}</span>
+        </UiButton>
+      </div>
     </UiPopoverTrigger>
     <UiPopoverContent class="w-auto p-0">
       <UiCalendar v-model="binding" />

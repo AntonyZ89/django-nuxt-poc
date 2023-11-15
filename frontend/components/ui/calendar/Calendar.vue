@@ -49,11 +49,11 @@ onMounted(async () => {
 
 <template>
   <div class="relative">
-    <div class="absolute top-3 flex justify-between w-full px-4">
-      <button :class="cn(buttonVariants({ variant: 'outline' }), 'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100')" @click="handleNav('prev')">
+    <div class="absolute top-3 flex justify-between w-full px-4 pointer-events-none">
+      <button :class="cn(buttonVariants({ variant: 'outline' }), 'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 pointer-events-auto')" @click="handleNav('prev')">
         <ChevronLeft class="w-4 h-4" />
       </button>
-      <button :class="cn(buttonVariants({ variant: 'outline' }), 'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100')" @click="handleNav('next')">
+      <button :class="cn(buttonVariants({ variant: 'outline' }), 'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 pointer-events-auto')" @click="handleNav('next')">
         <ChevronRight class="w-4 h-4" />
       </button>
     </div>
@@ -79,9 +79,9 @@ onMounted(async () => {
   @apply grid gap-4;
 }
 .calendar .vc-title {
-  @apply text-sm font-medium pointer-events-none;
+  @apply text-sm font-medium;
 }
-.calendar .vc-pane-header-wrapper {
+.calendar .vc-pane-header-wrapper .vc-arrow {
   @apply hidden;
 }
 .calendar .vc-weeks {
@@ -115,4 +115,33 @@ onMounted(async () => {
 .calendar .vc-highlight-content-light {
   @apply bg-accent text-accent-foreground;
 }
+
+.vc-popover-content-wrapper {
+  @apply bg-white p-3 rounded-md w-2/3 border text-center shadow;
+}
+
+.vc-popover-content-wrapper .vc-nav-header {
+  @apply text-sm flex items-center justify-between;
+}
+
+.vc-popover-content-wrapper .vc-nav-header > .vc-nav-arrow {
+  @apply border rounded-md;
+}
+
+.vc-popover-content-wrapper .vc-nav-items {
+  @apply space-y-1;
+}
+
+.vc-popover-content-wrapper .vc-nav-items > button {
+  @apply text-center rounded-md text-sm p-0 relative focus-within:relative focus-within:z-20 inline-flex items-center justify-center ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 hover:bg-accent hover:text-accent-foreground h-9 w-9  font-normal aria-selected:opacity-100 select-none;
+}
+
+.vc-popover-content-wrapper .vc-nav-items > button.is-active {
+  @apply bg-primary text-white;
+}
+
+.vc-popover-content-wrapper .vc-nav-items > button.is-current {
+  @apply border;
+}
+
 </style>

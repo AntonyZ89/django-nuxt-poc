@@ -4,34 +4,34 @@
       <form class="grid md:grid-cols-[repeat(3,1fr)_150px] gap-3 items-end" @submit.prevent="handleSubmit">
         <div>
           <UiLabel for="name">
-            Nome
+            {{ $t('user.field.name') }}
           </UiLabel>
           <UiInput name="name" />
           <UiInputError name="name" />
         </div>
         <div>
           <UiLabel for="email">
-            E-mail
+            {{ $t('user.field.email') }}
           </UiLabel>
           <UiInput name="email" />
           <UiInputError name="email" />
         </div>
         <div>
           <UiLabel for="role">
-            Tipo
+            {{ $t('user.field.role') }}
           </UiLabel>
           <UiSelect
             name="role"
             :items="UserRoleList"
             object-key="value"
             object-value="label"
-            placeholder="Todos"
+            :placeholder="$t('all')"
           />
           <UiInputError name="role" />
         </div>
 
         <UiButton type="submit">
-          Pesquisar
+          {{ $t('search') }}
         </UiButton>
       </form>
     </UiCardContent>

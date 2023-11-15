@@ -1,0 +1,78 @@
+{
+  "actions": "Actions",
+  "search": "Search",
+  "all": "All",
+  "create_entity": "Create {0}",
+  "create": "Create",
+  "update": "Update",
+  "add": "Add",
+  "select": "Select",
+
+  "generic": {
+    "field": {
+      "name": "Name",
+      "created_at": "Created at",
+      "updated_at": "Updated at",
+    }
+  },
+  "page": {
+    "home": "Home",
+    "discipline": "Discipline | Disciplines",
+    "user": "User | Users",
+  },
+  "role": {
+    "student": "Student | Students",
+    "teacher": "Teacher",
+    "coordinator": "Coordinator",
+  },
+  "logout": "Logout",
+  "discipline": {
+    "select_student": "Selected student",
+    "field": {
+      "name": "@:generic.field.name",
+      "workload": "Workload",
+      "created_at": "@:generic.field.created_at",
+      "updated_at": "@:generic.field.updated_at",
+      "total_students": "Total students",
+      "teacher": "Teacher",
+    },
+    "validation": {
+      "name": "Name is required.",
+      "workload": "Workload is required.",
+      "teacher": "Teacher is required.",
+      "students": "At least one student is required.",
+      "no_users": "All students are already selected.",
+
+    }
+  },
+  "user": {
+    "field": {
+      "name": "@:generic.field.name",
+      "email": "E-mail",
+      "role": "Role",
+      "birthday": "Birthday",
+      "password": "Password",
+      "new_password": "New password",
+      "password_confirmation": "Password confirmation",
+      "created_at": "@:generic.field.created_at",
+      "updated_at": "@:generic.field.updated_at",
+    },
+    "validation": {
+      "name": "Name needs to be at least 3 characters.",
+      "email": "Invalid e-mail.",
+      "role": "Role is required.",
+      "birthday": "Birthday is required.",
+      "password": "Password is required.",
+      "password_min": "Password needs to be at least 6 characters.",
+      "password_confirmation": "Password confirmation does not match.",
+    }
+  },
+
+  "modal": {
+    "delete": {
+      "title": "Delete {0} \"{1}\"?",
+      "message": "This action cannot be undone.",
+      "button": "Delete",
+    }
+  }
+}

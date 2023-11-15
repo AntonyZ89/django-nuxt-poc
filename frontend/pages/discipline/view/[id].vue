@@ -7,11 +7,11 @@
 
       <div class="text-sm">
         <div>
-          Professor: <b>{{ item.teacher_obj.name }}</b>
+          {{ $t('discipline.field.teacher') }}: <b>{{ item.teacher_obj.name }}</b>
         </div>
 
         <div>
-          Carga horária: <b>{{ item.workload }}h</b>
+          {{ $t('discipline.field.workload') }}: <b>{{ item.workload }}h</b>
         </div>
       </div>
     </UiCardHeader>

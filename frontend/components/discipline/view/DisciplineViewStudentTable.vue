@@ -2,20 +2,20 @@
   <UiTable>
     <UiTableHeader>
       <UiTableHead>
-        Aluno
+        {{ t('student') }}
       </UiTableHead>
       <UiTableHead>
-        Nota 1
+        {{ t('note') }} 1
       </UiTableHead>
       <UiTableHead>
-        Nota 2
+        {{ t('note') }} 2
       </UiTableHead>
       <UiTableHead>
-        Média
+        {{ t('average') }}
       </UiTableHead>
       <PermissionRole role="TEACHER">
         <UiTableHead class="text-center">
-          Ações
+          {{ t('actions') }}
         </UiTableHead>
       </PermissionRole>
     </UiTableHeader>
@@ -40,7 +40,7 @@
 
       <UiTableEmpty v-else :colspan="6">
         <h1 class="text-xl font-bold">
-          Nenhuma disciplina encontrada
+          {{ t('no_data') }}
         </h1>
       </UiTableEmpty>
     </UiTableBody>
@@ -52,6 +52,30 @@ import { UserRole } from '~/types'
 
 const globalStore = useGlobalStore()
 const disciplineViewStore = useDisciplineViewStore()
+const { t } = useI18n()
 
 const item = computed(() => disciplineViewStore.item!)
 </script>
+
+<i18n lang="json">
+  {
+    "en": {
+      "student": "Student",
+      "note": "Note",
+      "no_data": "No data found",
+      "average": "Average"
+    },
+    "pt": {
+      "student": "Aluno",
+      "note": "Nota",
+      "no_data": "Nenhuma informação encontrada",
+      "average": "Média"
+    },
+    "es": {
+      "student": "Alumno",
+      "note": "Nota",
+      "no_data": "No data found",
+      "average": "Promedio"
+    }
+  }
+</i18n>

@@ -1,0 +1,78 @@
+{
+  "actions": "Ações",
+  "search": "Buscar",
+  "all": "Todos",
+  "create_entity": "Criar {0}",
+  "create": "Criar",
+  "update": "Atualizar",
+  "add": "Adicionar",
+  "select": "Selecionar",
+
+  "generic": {
+    "field": {
+      "name": "Nome",
+      "created_at": "Criado em",
+      "updated_at": "Atualizado em",
+    }
+  },
+  "page": {
+    "home": "Início",
+    "discipline": "Disciplina | Disciplinas",
+    "user": "Usuário | Usuários",
+  },
+  "role": {
+    "student": "Estudante | Estudantes",
+    "teacher": "Professor",
+    "coordinator": "Coordenador",
+  },
+  "logout": "Sair",
+  "discipline": {
+    "select_student": "Estudante selecionado",
+    "field": {
+      "name": "@:generic.field.name",
+      "workload": "Carga horária",
+      "created_at": "@:generic.field.created_at",
+      "updated_at": "@:generic.field.updated_at",
+      "total_students": "Total de estudantes",
+      "teacher": "Professor",
+    },
+    "validation": {
+      "name": "Nome é obrigatório.",
+      "workload": "Carga horária é obrigatória.",
+      "teacher": "Professor é obrigatório.",
+      "students": "Pelo menos um estudante é obrigatório.",
+      "no_users": "Todos os estudantes já estão selecionados.",
+    }
+  },
+  "user": {
+    "field": {
+      "name": "@:generic.field.name",
+      "email": "E-mail",
+      "role": "Função",
+      "birthday": "Data de nascimento",
+      "password": "Senha",
+      "new_password": "Nova senha",
+      "password_confirmation": "Confirmação de senha",
+      "created_at": "@:generic.field.created_at",
+      "updated_at": "@:generic.field.updated_at",
+    },
+    "validation": {
+      "name": "O nome precisa ter pelo menos 3 caracteres.",
+      "email": "E-mail inválido.",
+      "role": "A função é obrigatória.",
+      "birthday": "Data de nascimento é obrigatória.",
+      "password": "Senha é obrigatória.",
+      "password_min": "A senha precisa ter pelo menos 6 caracteres.",
+      "password_confirmation": "A confirmação de senha não coincide.",
+    }
+  },
+
+  "modal": {
+    "delete": {
+      "title": "Excluir {0} \"{1}\"?",
+      "message": "Esta ação não pode ser desfeita.",
+      "button": "Excluir",
+    }
+  }
+}
+

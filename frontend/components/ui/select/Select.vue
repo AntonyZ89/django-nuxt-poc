@@ -1,10 +1,11 @@
-<script setup lang="ts" generic="T extends object">
+<script setup lang="ts" generic="T extends object | undefined">
 import { useVModel } from '@vueuse/core'
-import { X } from 'lucide-vue-next'
 import type { SelectRootEmits, SelectRootProps } from 'radix-vue'
 import { SelectRoot, useForwardPropsEmits } from 'radix-vue'
+import type { FieldContext } from 'vee-validate'
 
 interface Props extends Omit<SelectRootProps, 'modelValue'> {
+  value?: T
   modelValue?: T
   items: Array<T>
   placeholder?: string
@@ -15,9 +16,10 @@ interface Props extends Omit<SelectRootProps, 'modelValue'> {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  value: undefined,
   modelValue: undefined,
   placeholder: undefined,
-  name: undefined,
+  name: '',
   objectKey: 'id'
 })
 const emits = defineEmits<
@@ -26,19 +28,20 @@ const emits = defineEmits<
 >()
 
 const forwarded = useForwardPropsEmits(props, emits)
-// @ts-ignore
-const { value } = useField<string | number | undefined>(props.name)
+const { value: fieldValue } = useField<string | number>(props.name)
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
+  // @ts-ignore
   defaultValue: props.defaultValue
 })
 
 const binding = computed({
-  get: () => modelValue.value || value.value,
+  get: () => props.value || modelValue.value || fieldValue?.value,
   set: (v) => {
+    // @ts-ignore
     emits('update:modelValue', v)
-    value.value = v
+    fieldValue && (fieldValue.value = v)
   }
 })
 
@@ -59,6 +62,7 @@ function getValue (value: T) {
 function handleEmit (value: string) {
   // @ts-ignore
   if (binding.value && value === getKey(binding.value)) {
+    // @ts-ignore
     binding.value = undefined
     return
   }

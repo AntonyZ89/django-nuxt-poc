@@ -2,25 +2,25 @@
   <UiTable>
     <UiTableHeader>
       <UiTableHead>
-        Nome
+        {{ $t('discipline.field.name') }}
       </UiTableHead>
       <UiTableHead>
-        Professor
+        {{ $t('discipline.field.teacher') }}
       </UiTableHead>
       <UiTableHead>
-        Carga horária
+        {{ $t('discipline.field.workload') }}
       </UiTableHead>
       <UiTableHead>
-        Total de Alunos
+        {{ $t('discipline.field.total_students') }}
       </UiTableHead>
       <UiTableHead>
-        Cadastrado em
+        {{ $t('discipline.field.created_at') }}
       </UiTableHead>
       <UiTableHead>
-        Atualizado em
+        {{ $t('discipline.field.updated_at') }}
       </UiTableHead>
       <UiTableHead class="text-center">
-        Ações
+        {{ $t('actions') }}
       </UiTableHead>
     </UiTableHeader>
 

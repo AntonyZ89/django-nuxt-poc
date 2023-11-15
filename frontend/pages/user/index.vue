@@ -1,10 +1,12 @@
 <template>
   <UiCard>
     <UiCardHeader class="flex-row items-center justify-between pb-0">
-      <UiCardTitle>Usuários</UiCardTitle>
+      <UiCardTitle>
+        {{ $t('page.user', 0) }}
+      </UiCardTitle>
 
       <UiButton :as="NuxtLink" :to="{ name: 'user-create' }">
-        Novo
+        {{ $t('create_entity', [$t('page.user')]) }}
       </UiButton>
     </UiCardHeader>
     <UiCardContent class="p-3 space-y-3">

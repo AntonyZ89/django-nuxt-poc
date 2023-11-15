@@ -1,11 +1,13 @@
 <template>
   <UiCard>
     <UiCardHeader class="flex-row items-center pb-0 justify-between">
-      <UiCardTitle>Disciplinas</UiCardTitle>
+      <UiCardTitle>
+        {{ $t('page.discipline', 0) }}
+      </UiCardTitle>
 
       <PermissionRole role="COORDINATOR">
         <UiButton :as="NuxtLink" :to="{ name: 'discipline-create' }">
-          Novo
+          {{ $t('create_entity', [$t('page.discipline')]) }}
         </UiButton>
       </PermissionRole>
     </UiCardHeader>
