@@ -12,7 +12,7 @@
       <UiCard
         ref="menuRef"
         as="menu"
-        class="transition-all absolute mt-6 inset-x-0 p-3 md:hidden flex flex-col justify-between gap-y-3"
+        class="transition-all absolute mt-6 inset-x-0 z-10 p-3 md:hidden flex flex-col justify-between gap-y-3"
         :class="{ 'visible opacity-100': menu, 'invisible opacity-0': !menu }"
       >
         <NavbarLeft />

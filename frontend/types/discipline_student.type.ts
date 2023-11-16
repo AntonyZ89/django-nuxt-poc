@@ -10,6 +10,6 @@ interface DisciplineStudent {
   user_obj: Pick<User, 'id' | 'name'>
 }
 
-export {
+export type {
   DisciplineStudent
 }

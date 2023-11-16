@@ -74,7 +74,7 @@
 
       <UiTableEmpty v-else :colspan="6">
         <h1 class="text-xl font-bold">
-          Nenhuma disciplina encontrada
+          {{ t('no_data') }}
         </h1>
       </UiTableEmpty>
     </UiTableBody>
@@ -86,4 +86,19 @@ import { Pencil, Eye } from 'lucide-vue-next'
 import { NuxtLink } from '#components'
 
 const disciplineStore = useDisciplineStore()
+const { t } = useI18n()
 </script>
+
+<i18n lang="json">
+{
+  "en": {
+    "no_data": "No data found"
+  },
+  "pt": {
+    "no_data": "Nenhuma informação encontrada"
+  },
+  "es": {
+    "no_data": "No información encontrada"
+  }
+}
+</i18n>

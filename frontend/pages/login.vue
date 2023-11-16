@@ -1,5 +1,5 @@
 <template>
-  <UiCard class="w-96">
+  <UiCard class="w-80">
     <UiCardContent class="space-y-3 p-3">
       <h1 class="text-2xl font-bold text-center">
         {{ t('welcome') }}

@@ -116,7 +116,7 @@ onMounted(async () => {
   @apply bg-accent text-accent-foreground;
 }
 
-.vc-popover-content-wrapper {
+.vc-popover-content-wrapper[data-popper-placement] {
   @apply bg-white p-3 rounded-md w-2/3 border text-center shadow;
 }
 

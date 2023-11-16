@@ -74,7 +74,7 @@ const item = computed(() => disciplineViewStore.item!)
     "es": {
       "student": "Alumno",
       "note": "Nota",
-      "no_data": "No data found",
+      "no_data": "No información encontrada",
       "average": "Promedio"
     }
   }
