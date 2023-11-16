@@ -85,7 +85,7 @@ const handleSubmit = submit(async (values) => {
     router.push({ name: 'index' })
   } catch (e) {
     const error = e as FetchError<Response>
-    const message = error.data?.message || 'Ocorreu um erro, tente novamente'
+    const message = error.data?.message || t('occurred_an_error')
 
     toast({ type: 'error', message })
     setFieldError('email', message)

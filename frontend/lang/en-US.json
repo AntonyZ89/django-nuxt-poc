@@ -7,6 +7,10 @@
   "update": "Update",
   "add": "Add",
   "select": "Select",
+  "updated_successfully": "{0} updated successfully.",
+  "created_successfully": "{0} created successfully.",
+  "deleted_successfully": "{0} deleted successfully.",
+  "occurred_an_error": "Occurred an error, please try again.",
 
   "generic": {
     "field": {

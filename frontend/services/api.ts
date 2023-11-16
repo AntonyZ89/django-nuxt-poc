@@ -1,5 +1,14 @@
 import { ofetch } from 'ofetch'
 
+function getCookie (name: string) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+
+  if (parts.length === 2) {
+    return parts.pop()?.split(';').shift()
+  }
+}
+
 const useApi = ofetch.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   onResponseError (error) {
@@ -13,12 +22,18 @@ const useApi = ofetch.create({
   },
   onRequest ({ options }) {
     const token = localStorage.getItem('token')
+    const cookie = getCookie('i18n_redirected')
+    const headers = options.headers as Record<string, string> ?? {}
+
+    if (cookie) {
+      headers['Accept-Language'] = cookie
+    }
 
     if (token) {
-      options.headers = [
-        ['Authorization', `Token ${token}`]
-      ]
+      headers.Authorization = `Token ${token}`
     }
+
+    options.headers = headers
   }
 })
 

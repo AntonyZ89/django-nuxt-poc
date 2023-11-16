@@ -48,22 +48,23 @@ interface Props {
   item: NonNullable<Discipline['students']>[number]
 }
 const { toast } = useToast()
+const { t } = useI18n()
 const disciplineViewStore = useDisciplineViewStore()
 
 const props = defineProps<Props>()
 
 const validationSchema = toTypedSchema(z.object({
-  note_1: z.number({ invalid_type_error: 'Inválido' })
-    .min(0, 'Mínimo 0')
-    .max(10, 'Máximo 10')
+  note_1: z.number({ invalid_type_error: t('invalid') })
+    .min(0, t('min', [0]))
+    .max(10, t('max', [10]))
     .or(
       z.literal('')
         .transform(value => value === '' ? null : value)
     )
     .nullable(),
-  note_2: z.number({ invalid_type_error: 'Inválido' })
-    .min(0, 'Mínimo 0')
-    .max(10, 'Máximo 10')
+  note_2: z.number({ invalid_type_error: t('invalid') })
+    .min(0, t('min', [0]))
+    .max(10, t('max', [10]))
     .or(
       z.literal('')
         .transform(value => value === '' ? null : value)
@@ -92,12 +93,12 @@ const handleSubmit = submit(async (values) => {
       ...values
     })
 
-    toast({ type: 'success', message: 'Nota salva com sucesso' })
+    toast({ type: 'success', message: t('saved_successfully') })
 
     await disciplineViewStore.load(props.disciplineId)
   } catch (e) {
     const error = e as FetchError<Response | Record<string, string>>
-    const message = error.data?.message || 'Erro ao carregar a disciplina'
+    const message = error.data?.message || t('occurred_an_error')
 
     toast({ type: 'error', message })
 
@@ -110,3 +111,26 @@ const handleSubmit = submit(async (values) => {
   }
 })
 </script>
+
+<i18n lang="json">
+{
+  "en": {
+    "saved_successfully": "Note saved successfully",
+    "invalid": "Invalid",
+    "min": "Min {0}",
+    "max": "Max {0}"
+  },
+  "pt": {
+    "saved_successfully": "Nota salva com sucesso",
+    "invalid": "Inválido",
+    "min": "Mínimo {0}",
+    "max": "Máximo {0}"
+  },
+  "es": {
+    "saved_successfully": "Nota guardada con exito",
+    "invalid": "Inválido",
+    "min": "Mínimo {0}",
+    "max": "Máximo {0}"
+  }
+}
+</i18n>

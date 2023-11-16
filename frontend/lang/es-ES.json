@@ -7,6 +7,10 @@
   "update": "Actualizar",
   "add": "Agregar",
   "select": "Seleccionar",
+  "updated_successfully": "{0} actualizado correctamente.",
+  "created_successfully": "{0} creado correctamente.",
+  "deleted_successfully": "{0} eliminado correctamente.",
+  "occurred_an_error": "Ocurrio un error, inténtelo de nuevo.",
 
   "generic": {
     "field": {
@@ -75,4 +79,3 @@
     }
   }
 }
-

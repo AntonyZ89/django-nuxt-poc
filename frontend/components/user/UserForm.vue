@@ -151,7 +151,7 @@ async function getItem () {
   } catch (e) {
     const error = e as FetchError<Response>
 
-    const message = error.data?.message || 'Ocorreu um erro, tente novamente'
+    const message = error.data?.message || t('occurred_an_error')
 
     toast({ type: 'error', message })
   } finally {
@@ -172,10 +172,10 @@ const handleSubmit = submit(async (values) => {
 
     if (props.id) {
       await UserService.update({ id: props.id, ...data })
-      message = 'Usuário atualizada com sucesso'
+      message = t('updated_successfully', [t('page.user')])
     } else {
       await UserService.create(data)
-      message = 'Usuário criada com sucesso'
+      message = t('created_successfully', [t('page.user')])
     }
 
     toast({ type: 'success', message })
@@ -194,7 +194,7 @@ const handleSubmit = submit(async (values) => {
       setErrors(data)
     }
 
-    const message = error.data?.message as string || 'Ocorreu um erro, tente novamente'
+    const message = error.data?.message as string || t('occurred_an_error')
 
     toast({ type: 'error', message })
   } finally {

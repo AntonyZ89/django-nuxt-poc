@@ -188,7 +188,7 @@ async function getItem () {
   } catch (e) {
     const error = e as FetchError<Response>
 
-    const message = error.data?.message || 'Ocorreu um erro, tente novamente'
+    const message = error.data?.message || t('occurred_an_error')
 
     toast({ type: 'error', message })
   } finally {
@@ -208,7 +208,7 @@ async function getUsers () {
   } catch (e) {
     const error = e as FetchError<Response>
 
-    const message = error.data?.message || 'Ocorreu um erro, tente novamente'
+    const message = error.data?.message || t('occurred_an_error')
 
     toast({ type: 'error', message })
   }
@@ -231,7 +231,7 @@ async function getTeachers () {
   } catch (e) {
     const error = e as FetchError<Response>
 
-    const message = error.data?.message || 'Ocorreu um erro, tente novamente'
+    const message = error.data?.message || t('occurred_an_error')
 
     toast({ type: 'error', message })
   }
@@ -279,14 +279,14 @@ const handleSubmit = submit(async (values) => {
         teacher: values.teacher.id,
         students: values.students.map(student => student.user_obj.id)
       })
-      message = 'Disciplina atualizada com sucesso'
+      message = t('updated_successfully', [t('page.discipline')])
     } else {
       await DisciplineService.create({
         ...values,
         teacher: values.teacher.id,
         students: values.students.map(student => student.user_obj.id)
       })
-      message = 'Disciplina criada com sucesso'
+      message = t('created_successfully', [t('page.discipline')])
     }
 
     toast({ type: 'success', message })
@@ -299,7 +299,7 @@ const handleSubmit = submit(async (values) => {
       setErrors(error.data as Record<string, string>)
     }
 
-    const message = error.data?.message || 'Ocorreu um erro, tente novamente'
+    const message = error.data?.message || t('occurred_an_error')
 
     toast({ type: 'error', message })
   } finally {

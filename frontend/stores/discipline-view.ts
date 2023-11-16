@@ -6,6 +6,7 @@ const useDisciplineViewStore = defineStore('disciplineView', () => {
   const item = ref<RequiredSelect<Discipline, 'students'>>()
 
   const { toast } = useToast()
+  const { t } = useI18n()
 
   async function load (id: Discipline['id']) {
     try {
@@ -17,7 +18,7 @@ const useDisciplineViewStore = defineStore('disciplineView', () => {
       item.value = data
     } catch (e) {
       const error = e as FetchError<Response>
-      const message = error.data?.message || 'Erro ao carregar a disciplina'
+      const message = error.data?.message || t('occurred_an_error')
 
       toast({ message, type: 'error' })
     }

@@ -41,7 +41,7 @@ const userStore = useUserStore()
 const dialog = ref(false)
 
 const title = computed(() => {
-  return t('modal.delete.title', [t('page.user', 1).toLowerCase(), props.item.name])
+  return t('modal.delete.title', [t('page.user').toLowerCase(), props.item.name])
 })
 
 /**
@@ -52,7 +52,7 @@ async function handleRemove () {
   try {
     await UserService.remove(props.item.id)
 
-    toast({ type: 'success', message: 'Usuário excluído com sucesso' })
+    toast({ type: 'success', message: t('deleted_successfully', [t('page.user').toLowerCase()]) })
 
     dialog.value = false
 
@@ -64,7 +64,7 @@ async function handleRemove () {
   } catch (e) {
     const error = e as FetchError<Response>
 
-    const message = error.data?.message || 'Ocorreu um erro, tente novamente'
+    const message = error.data?.message || t('occurred_an_error')
 
     toast({ type: 'error', message })
   }

@@ -10,6 +10,7 @@ const useDisciplineStore = defineStore('discipline', () => {
   const meta = ref<Meta>({ count: 0, page: 1, pages: 1, per_page: 10 })
 
   const { toast } = useToast()
+  const { t } = useI18n()
 
   function handlePage (page: number) {
     if (page === meta.value.page || page < 1 || page > meta.value.pages) {
@@ -31,7 +32,7 @@ const useDisciplineStore = defineStore('discipline', () => {
       meta.value = rest
     } catch (e) {
       const error = e as FetchError<Response>
-      const message = error.data?.message || 'Erro ao carregar as disciplinas'
+      const message = error.data?.message || t('occurred_an_error')
 
       toast({ message, type: 'error' })
     }
