@@ -19,7 +19,6 @@ class DisciplineView(viewsets.ModelViewSet):
 
         teacher = query_query.get('teacher')
         name = query_query.get('name')
-
         if teacher is not None:
             query = query.filter(teacher__name__contains=teacher)
 

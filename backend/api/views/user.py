@@ -15,8 +15,10 @@ class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
 
     def get_serializer_class(self):
-        if self.action in ['create', 'update'] and 'role' in self.request.data:
-            match self.request.data.get('role'):
+        user_role = self.request.user.role
+
+        if self.action in ['create', 'update', 'partial_update']:
+            match user_role:
                 case User.Role.TEACHER:
                     return TeacherSerializer
                 case User.Role.STUDENT:

@@ -1,4 +1,5 @@
 from rest_framework import serializers, validators
+from django.utils.translation import gettext_lazy as _
 from ..models import User
 
 
@@ -10,7 +11,7 @@ class UserSerializer (serializers.ModelSerializer):
             validators.UniqueTogetherValidator(
                 queryset=User.objects.all(),
                 fields=['email', 'role'],
-                message='User with this email and role already exists'
+                message=_('User with this email and role already exists')
             )
         ]
         extra_kwargs = {

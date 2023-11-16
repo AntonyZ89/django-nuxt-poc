@@ -1,0 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-15 22:52-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: serializers/coordinator.py:22 serializers/coordinator.py:27
+msgid "Coordinator"
+msgstr "Coordinador"
+
+#: serializers/coordinator.py:25 serializers/teacher.py:22
+#, fuzzy, python-format
+#| msgid "%(role) must be at least 18 years old"
+msgid "%(role)s must be at least 18 years old"
+msgstr "%(role) debe tener al menos 18 años"
+
+#: serializers/discipline.py:26 serializers/discipline_student.py:18
+#, fuzzy, python-format
+#| msgid "User doesn't exist or isn't a %(role)."
+msgid "User doesn't exist or isn't a %(role)s."
+msgstr "El usuario no existe o no es un %(role)."
+
+#: serializers/discipline.py:29 serializers/discipline_student.py:21
+#: serializers/teacher.py:24
+msgid "Teacher"
+msgstr "Profesor"
+
+#: serializers/user.py:14
+msgid "User with this email and role already exists"
+msgstr "El usuario con este correo y rol ya existe"
+
+#: views/auth.py:46
+msgid "User not found"
+msgstr "Usuario no encontrado"
+
+#: views/auth.py:56
+msgid "Log in successfully"
+msgstr "Logueado con exito"

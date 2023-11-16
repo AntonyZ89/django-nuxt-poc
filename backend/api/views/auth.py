@@ -6,6 +6,8 @@ from drf_spectacular.utils import extend_schema, OpenApiExample
 from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
 from ..models import User
 from ..serializers import LoginSerializer, NotFoundSerializer, TokenSerializer
 from .. import permissions as custom_permissions
@@ -41,17 +43,17 @@ class AuthView(viewsets.ViewSet):
 
         if not user:
             return Response(
-                {"message": "User not found"},
+                {"message": _("User not found")},
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        token, _ = Token.objects.get_or_create(user=user)
+        token, _user = Token.objects.get_or_create(user=user)
 
         User.objects.filter(pk=user.pk).update(last_login=timezone.now())
 
         return Response(
             {
-                "message": "Log in successfully",
+                "message": _("Log in successfully"),
                 "token": token.key,
             },
             status=status.HTTP_200_OK

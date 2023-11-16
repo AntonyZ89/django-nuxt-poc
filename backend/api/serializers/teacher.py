@@ -1,5 +1,6 @@
 from datetime import date
 from rest_framework import serializers
+from django.utils.translation import gettext_lazy as _
 from ..models import Teacher
 from .user import UserSerializer
 
@@ -18,7 +19,9 @@ class TeacherSerializer (serializers.ModelSerializer):
 
         if age < 18:
             raise serializers.ValidationError(
-                "Teacher must be at least 18 years old"
+                _("%(role)s must be at least 18 years old")
+                %
+                {"role": _("Teacher")}
             )
 
         return value
