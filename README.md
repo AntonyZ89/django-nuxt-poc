@@ -2,12 +2,14 @@
     Django + Nuxt POC
 </h1>
 
-<img src="docs/project.png" alt="Django + Nuxt POC" width="100%"/>
-<img src="docs/pages/login.png" alt="Login Screen" width="19.3%"/>
-<img src="docs/pages/discipline_form.png" alt="Discipline Form Screen" width="19.3%"/>
-<img src="docs/pages/disciplines.png" alt="Discipline Screen" width="19.3%"/>
-<img src="docs/pages/user_form.png" alt="User Form Screen" width="19.3%"/>
-<img src="docs/pages/users.png" alt="User Screen" width="19.3%"/>
+<p align="center">
+    <img src="docs/project.png" alt="Django + Nuxt POC" width="100%"/>
+    <img src="docs/pages/login.png" alt="Login Screen" width="19.5%"/>
+    <img src="docs/pages/discipline_form.png" alt="Discipline Form Screen" width="19.5%"/>
+    <img src="docs/pages/disciplines.png" alt="Discipline Screen" width="19.5%"/>
+    <img src="docs/pages/user_form.png" alt="User Form Screen" width="19.5%"/>
+    <img src="docs/pages/users.png" alt="User Screen" width="19.5%"/>
+</p>
 
 # Getting Started
 
